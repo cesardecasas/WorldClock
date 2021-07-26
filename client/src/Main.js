@@ -8,12 +8,11 @@ const Main = ()=>{
     const [times, setTimes] = useState([]);
 
     const getLocal =()=>{
-        const d = new Date()
-        setTimes([...times, d])
-        console.log(times)
+        setTimes([...times,'local'])
+        
     }
     useEffect(()=>{
-        getLocal()
+        setInterval(getLocal(),1000)
     },[])
 
 
