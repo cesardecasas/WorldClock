@@ -9,7 +9,7 @@ const Main = ()=>{
     const [times, setTimes] = useState([]);
 
     const getLocal =()=>{
-        setTimes([...times,'local'])
+        setTimes([...times,'Local time'])
         
     }
     useEffect(()=>{
@@ -21,9 +21,9 @@ const Main = ()=>{
         <main>
             <h1>World Clock!</h1>
             <div className='grid'>
-                {times[0] ? times.map((time, index)=><Clock timeZone={time} key={index}/> ) : <Spinner animation="grow" variant="success" />}
+                {times[0] ? times.map((time, index)=><Clock timeZone={time} key={index} times={times} setTimes={setTimes} /> ) : <Spinner animation="grow" variant="success" />}
                 
-                <Menu/>
+                <Menu setTimes={setTimes} times={times}/>
             </div>
             <Footer/>
         </main>

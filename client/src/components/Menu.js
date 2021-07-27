@@ -9,7 +9,9 @@ import Select from 'react-select'
 import Timezones from './timezone.json'
 
 
-const Menu =()=>{
+const Menu =(props)=>{
+
+  const {times, setTimes} = props
 
     const [show, setShow] = useState(false);
     const [value,setValue] = useState('')
@@ -18,8 +20,11 @@ const Menu =()=>{
     const handleShow = () => setShow(true);
 
     const handleChange =(e)=>{
-      console.log(e.text)
       setValue(e.text)
+    }
+
+    const submit =()=>{
+      setTimes([...times, value])
     }
 
 
@@ -34,7 +39,7 @@ const Menu =()=>{
         </Offcanvas.Header>
         <InputGroup className="mb-3">
                   <Select options={Timezones} className='select' onChange={(e)=>handleChange(e)}/>
-            <Button variant="outline-secondary" id="button-addon2">
+            <Button variant="outline-secondary" id="button-addon2" onClick={submit}>
             <ImSearch/>
             </Button>
         </InputGroup>
