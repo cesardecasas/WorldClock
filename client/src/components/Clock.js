@@ -1,11 +1,13 @@
 import React,{useState} from 'react'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Clock =(props)=>{
     
     const [time, setTime]=useState('')
 
     const getTime =()=>{
-        let d = new Date();
+        let d
+        props.timeZone === 'local' ? d = new Date() :  d = new Date(props.time);  
         let s = d.getSeconds();
         let m = d.getMinutes();
         let h = d.getHours();
@@ -16,8 +18,9 @@ const Clock =(props)=>{
 
     return (
         <div>
-            <h3>Local Time</h3>
-            <p fontSize={"30px"}>{time}</p>
+            <h4>Local Time</h4>
+            {time ? <p fontSize={"30px"}>{time}</p> : <Spinner animation="border" variant="success" />}
+            
         </div>
     )
 }

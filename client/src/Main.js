@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import Menu from './components/Menu'
 import Clock from './components/Clock'
 import Footer from './components/Footer'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Main = ()=>{
 
@@ -20,7 +21,7 @@ const Main = ()=>{
         <main>
             <h1>World Clock!</h1>
             <div className='grid'>
-                {times[0] ? times.map((time, index)=><Clock time={time} key={index}/> ) : <p>Loading</p>}
+                {times[0] ? times.map((time, index)=><Clock timeZone={time} key={index}/> ) : <Spinner animation="grow" variant="success" />}
                 
                 <Menu/>
             </div>
