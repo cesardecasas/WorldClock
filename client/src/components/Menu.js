@@ -5,13 +5,22 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import { BsFillPlusCircleFill } from 'react-icons/bs'
 import {ImSearch} from 'react-icons/im'
+import Select from 'react-select'
+import Timezones from './timezone.json'
+
 
 const Menu =()=>{
 
     const [show, setShow] = useState(false);
+    const [value,setValue] = useState('')
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleChange =(e)=>{
+      console.log(e.text)
+      setValue(e.text)
+    }
 
 
     return(
@@ -24,11 +33,7 @@ const Menu =()=>{
           <Offcanvas.Title>Select zone</Offcanvas.Title>
         </Offcanvas.Header>
         <InputGroup className="mb-3">
-            <FormControl
-            placeholder="Place's name"
-            aria-label="Place's name"
-            aria-describedby="basic-addon2"
-            />
+                  <Select options={Timezones} className='select' onChange={(e)=>handleChange(e)}/>
             <Button variant="outline-secondary" id="button-addon2">
             <ImSearch/>
             </Button>
