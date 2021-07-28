@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import Spinner from 'react-bootstrap/Spinner'
 import CloseButton from 'react-bootstrap/CloseButton'
+import '../css/Clock.css';
+import ClockAnimation from './ClockAnimation';
 
 const Clock =(props)=>{
     
@@ -12,9 +14,13 @@ const Clock =(props)=>{
         a.splice(a.indexOf(props.timeZone),1)
         props.setTimes([...a])
     }
-
+    
+    let d
+    let s
+    let m
+    let h
     const getTime =()=>{
-        let d
+        
         if(props.timeZone === 'Local time'){
             d = new Date();  
             
@@ -33,9 +39,9 @@ const Clock =(props)=>{
             }
             
         }
-        let s = d.getSeconds();
-        let m = d.getMinutes();
-        let h = d.getHours();
+        s = d.getSeconds();
+        m = d.getMinutes();
+        h = d.getHours();
         setTime( ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2))
         setDate(d.toLocaleDateString())
     }
@@ -43,10 +49,11 @@ const Clock =(props)=>{
     setInterval(getTime, 1000)
 
     return (
-        <div>
-            <CloseButton aria-label="Hide" onClick={removeClock} marginLeft={'80%'} className='closed'/>
+        <div className='clock-div'>
+            <CloseButton aria-label="Hide" onClick={removeClock} className='closed'/>
             <h4>{props.timeZone.includes(')') ? props.timeZone.split(')')[1] : props.timeZone}</h4>
             <p>{date}</p>
+            <ClockAnimation size={400} timeFormat="24hour" hourFormat="standard" hours={h} minutes={m} seconds={s}/>
             {time ? <p fontSize={"30px"}>{time}</p> : <Spinner animation="border" variant="success" />}
             
         </div>
