@@ -55,8 +55,9 @@ const Clock =(props)=>{
     }
 
     let options = {
-        useCustomTime: true,    // set this to true
+        useCustomTime: true,    
         width: "100px",
+        marginLeft:'100px',
         border: true,
         borderColor: "#2e2e2e",
         baseColor: "#17a2b8",
@@ -67,9 +68,9 @@ const Clock =(props)=>{
           minute: "#fff",
           hour: "#fff"
         },
-        "seconds": current,   // set your
-        "minutes": current2,  // own
-        "hours": current3     // time here.
+        "seconds": current,   
+        "minutes": current2,  
+        "hours": current3     
     };
   
 
@@ -79,9 +80,9 @@ const Clock =(props)=>{
     return (
         <div className='clock-div'>
             <CloseButton aria-label="Hide" onClick={removeClock} className='closed'/>
-            <h4 height={'35%'}>{props.timeZone.includes(')') ? props.timeZone.split(')')[1] : props.timeZone}</h4>
+            <h4 height={'35%'} >{props.timeZone.includes(')') ? props.timeZone.split(')')[1] : props.timeZone}</h4>
             <p>{date}</p>
-            {current !== null ? <AnalogClock {...options} /> : <Spinner animation="border" variant="success" />}
+            {current !== null ?<div className='animation'> <AnalogClock {...options} marginLeft='25px'/> </div>: <Spinner animation="border" variant="success" />}
             
             {time ? <p fontSize={"30px"}>{time}</p> : <Spinner animation="border" variant="success" />}
             
