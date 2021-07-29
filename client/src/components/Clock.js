@@ -2,12 +2,16 @@ import React,{useState} from 'react'
 import Spinner from 'react-bootstrap/Spinner'
 import CloseButton from 'react-bootstrap/CloseButton'
 import '../css/Clock.css';
-import ClockAnimation from './ClockAnimation';
+import AnalogClock from 'analog-clock-react';
+
 
 const Clock =(props)=>{
     
     const [time, setTime]=useState('')
     const [date, setDate]=useState('')
+    const [current, setCurrent] = useState(null)
+    const [current2, setCurrent2] = useState(null)
+    const [current3, setCurrent3] = useState(null)
 
     const removeClock =()=>{
         let a = props.times
@@ -15,7 +19,7 @@ const Clock =(props)=>{
         props.setTimes([...a])
     }
     
-    let d
+    let d 
     let s
     let m
     let h
@@ -39,21 +43,46 @@ const Clock =(props)=>{
             }
             
         }
+        setCurrent(d.getSeconds())
+        setCurrent2(d.getMinutes())
+        setCurrent3(d.getHours())
         s = d.getSeconds();
         m = d.getMinutes();
         h = d.getHours();
         setTime( ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2))
         setDate(d.toLocaleDateString())
+        return d
     }
+
+    let options = {
+        useCustomTime: true,    // set this to true
+        width: "100px",
+        border: true,
+        borderColor: "#2e2e2e",
+        baseColor: "#17a2b8",
+        centerColor: "#459cff",
+        centerBorderColor: "#fff",
+        handColors: {
+          second: "#d81c7a",
+          minute: "#fff",
+          hour: "#fff"
+        },
+        "seconds": current,   // set your
+        "minutes": current2,  // own
+        "hours": current3     // time here.
+    };
+  
+
 
     setInterval(getTime, 1000)
 
     return (
         <div className='clock-div'>
             <CloseButton aria-label="Hide" onClick={removeClock} className='closed'/>
-            <h4>{props.timeZone.includes(')') ? props.timeZone.split(')')[1] : props.timeZone}</h4>
+            <h4 height={'35%'}>{props.timeZone.includes(')') ? props.timeZone.split(')')[1] : props.timeZone}</h4>
             <p>{date}</p>
-            <ClockAnimation size={400} timeFormat="24hour" hourFormat="standard" hours={h} minutes={m} seconds={s}/>
+            {current !== null ? <AnalogClock {...options} /> : <Spinner animation="border" variant="success" />}
+            
             {time ? <p fontSize={"30px"}>{time}</p> : <Spinner animation="border" variant="success" />}
             
         </div>
