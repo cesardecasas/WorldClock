@@ -4,8 +4,9 @@ import Clock from './components/Clock'
 import Footer from './components/Footer'
 import Spinner from 'react-bootstrap/Spinner'
 import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
 import { FcAlarmClock} from 'react-icons/fc'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 const Main = ()=>{
 
@@ -30,11 +31,12 @@ const Main = ()=>{
                 </Navbar.Brand>
                 
             </Navbar>
-            <div className='grid'>
-                {times[0] ? times.map((time, index)=><Clock timeZone={time} key={index} times={times} setTimes={setTimes} /> ) : <Spinner animation="grow" variant="success" />}
-                
-                <Menu setTimes={setTimes} times={times}/>
-            </div>
+                <Row style={{width:'98%'}} xs={1} sm={2} md={2} lg={3} xl={4}>
+                {times[0] ? times.map((time, index)=><Col key={index}><Clock timeZone={time} times={times} setTimes={setTimes} /></Col> ) : <Spinner animation="grow" variant="success" />}
+                <Col>
+                    <Menu setTimes={setTimes} times={times}/>
+                </Col>
+                </Row>
             <Footer/>
         </main>
     )
